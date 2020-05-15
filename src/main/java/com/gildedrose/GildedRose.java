@@ -10,7 +10,7 @@ class GildedRose {
     public void updateQuality() {
         for (Item item : items) {
             if (!item.name.equals("Aged Brie") && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                handleBackstagePass(item);
+                BackstagePass(item);
             }
 
             if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
@@ -18,7 +18,7 @@ class GildedRose {
             }
 
             if (item.sellIn < 0) {
-                handlePastSellin(item);
+                PastSellin(item);
             }
 
             if(!item.name.equals("Conjured Mana Cake")){
@@ -27,16 +27,16 @@ class GildedRose {
         }
     }
 
-    private void handlePastSellin(Item item) {
+    private void PastSellin(Item item) {
         if (!item.name.equals("Aged Brie") && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
 
-                if (item.quality > 0) {
-                    item.quality = item.quality + 1;
+                if (item.sellIn > 0) {
+                    item.sellIn = item.sellIn - 1;
                 } else {
-                    item.quality = item.quality - 1;
+                    item.sellIn = item.sellIn + 1;
                 }
         } else {
-            item.quality = 0;
+            item.sellIn = 0;
         }
     }
 
@@ -45,12 +45,12 @@ class GildedRose {
             item.quality = item.quality + 1;
 
             if (!item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                handleBackstagePass(item);
+                BackstagePass(item);
             }
         }
     }
 
-    private void handleBackstagePass(Item backstagePass) {
+    private void BackstagePass(Item backstagePass) {
         if (backstagePass.sellIn < 11) {
             if (backstagePass.quality < 50) {
                 backstagePass.quality = backstagePass.quality + 1;
